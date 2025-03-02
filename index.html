@@ -43,7 +43,7 @@
       align-items: center;
     }
     
-    .logo-svg {
+    .logo-img {
       width: 50px;
       height: 50px;
       margin-right: 0.5rem;
@@ -87,6 +87,18 @@
       font-size: 1.1rem;
       max-width: 600px;
       margin-bottom: 2rem;
+    }
+
+    .hero-img-container {
+      margin-top: 2rem;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .hero-img-container img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     }
 
     .btn-primary {
@@ -157,6 +169,12 @@
       transform: translateY(-5px);
     }
 
+    .feature-card img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 1rem;
+    }
+
     .feature-card h3 {
       color: #5151e5;
       margin-bottom: 1rem;
@@ -172,6 +190,16 @@
       text-align: center;
       padding: 3rem 2rem;
       background-color: #e9f2ff;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    #contact-content {
+      order: 1;
     }
 
     #contact h2 {
@@ -184,19 +212,28 @@
       font-size: 1rem;
       max-width: 600px;
       margin: 0 auto 2rem auto;
+      text-align: left;
     }
 
-    #contact .btn-secondary {
+    .btn-secondary {
       background-color: #0070f3;
       color: #fff;
       padding: 0.75rem 1.5rem;
       border-radius: 4px;
       font-weight: 600;
       transition: background-color 0.3s ease;
+      text-align: center;
+      display: inline-block;
     }
 
-    #contact .btn-secondary:hover {
+    .btn-secondary:hover {
       background-color: #0058c4;
+    }
+
+    #contact-img-container img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
 
     /* Footer */
@@ -221,17 +258,21 @@
       .features-grid {
         grid-template-columns: 1fr;
       }
+      #contact {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="logo-container">
-      <!-- Inline SVG Logo (Placeholder) -->
-      <svg class="logo-svg" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" aria-label="Saficus Logo">
-        <circle cx="36" cy="36" r="36" fill="#5151e5" />
-        <path d="M25,36 C25,28 47,28 47,36 C47,44 25,44 25,36 Z" fill="#f9c01c"/>
-      </svg>
+      <!-- Updated logo reference -->
+      <img 
+        src="assets/images/logo-saficus.png" 
+        alt="Saficus Logo" 
+        class="logo-img"
+      />
       <strong>Saficus</strong>
     </div>
     <nav>
@@ -243,6 +284,7 @@
     </nav>
   </header>
 
+  <!-- Hero Section -->
   <section class="hero">
     <h1>Jocul care nu-i joc, dar te pregătește la teme</h1>
     <p>
@@ -250,13 +292,23 @@
       în adevărate misiuni captivante. Tu înveți materia, iar jocul prinde viață!
     </p>
     <a href="#features" class="btn-primary">Hai să începem</a>
+
+    <!-- Hero image -->
+    <div class="hero-img-container">
+      <img 
+        src="assets/images/hero-saficus.png" 
+        alt="Copii folosind platforma Saficus"
+      />
+    </div>
   </section>
 
+  <!-- About Section -->
   <section id="about">
+    <!-- Updated about image reference -->
     <img
       id="about-img"
-      src="https://via.placeholder.com/600x400?text=Imagine+despre+AI+%26+Educa%C8%9Bie"
-      alt="Educație și AI"
+      src="assets/images/about-saficus.png"
+      alt="Despre Saficus"
     />
     <div id="about-text">
       <h2>Despre Saficus</h2>
@@ -274,9 +326,15 @@
     </div>
   </section>
 
+  <!-- Features Section -->
   <section id="features">
     <div class="features-grid">
       <div class="feature-card">
+        <!-- Adaptive Learning Image -->
+        <img 
+          src="assets/images/feature-adaptive-learning.png"
+          alt="Învățare adaptivă"
+        />
         <h3>Învățare Adaptivă</h3>
         <p>
           Algoritmii noștri AI detectează punctele tale forte și pe cele slabe, ajustând sarcinile
@@ -285,6 +343,11 @@
         </p>
       </div>
       <div class="feature-card">
+        <!-- Gamification Image -->
+        <img 
+          src="assets/images/feature-gamification.png"
+          alt="Gamificare Smart"
+        />
         <h3>Gamificare Smart</h3>
         <p>
           Transformăm temele într-o aventură. Acumulezi puncte, urci în nivel și câștigi
@@ -293,6 +356,11 @@
         </p>
       </div>
       <div class="feature-card">
+        <!-- Curriculum Alignment Image -->
+        <img 
+          src="assets/images/feature-curriculum-alignment.png"
+          alt="Aliniere la Curriculum"
+        />
         <h3>Aliniere la Curriculum</h3>
         <p>
           Conținutul e corelat cu programa școlară din România, pentru fiecare nivel de vârstă.
@@ -301,6 +369,11 @@
         </p>
       </div>
       <div class="feature-card">
+        <!-- Real-Time Monitoring Image -->
+        <img 
+          src="assets/images/feature-real-time-monitoring.png"
+          alt="Monitorizare în timp real"
+        />
         <h3>Monitorizare în timp real</h3>
         <p>
           Profesorii și părinții pot urmări progresul, primind rapoarte clare și detaliate
@@ -311,13 +384,23 @@
     </div>
   </section>
 
+  <!-- Contact Section -->
   <section id="contact">
-    <h2>Vrei să afli mai multe?</h2>
-    <p>
-      Suntem aici pentru a te ajuta să descoperi cum “tema” se poate transforma într-o aventură
-      cu sens. Contactează-ne și hai să construim împreună viitorul educației în România.
-    </p>
-    <a href="mailto:info@saficus.com" class="btn-secondary">Scrie-ne</a>
+    <div id="contact-content">
+      <h2>Vrei să afli mai multe?</h2>
+      <p>
+        Suntem aici pentru a te ajuta să descoperi cum “tema” se poate transforma într-o aventură
+        cu sens. Contactează-ne și hai să construim împreună viitorul educației în România.
+      </p>
+      <a href="mailto:info@saficus.com" class="btn-secondary">Scrie-ne</a>
+    </div>
+    <!-- Contact / CTA Image -->
+    <div id="contact-img-container">
+      <img 
+        src="assets/images/contact-cta-saficus.png"
+        alt="Contact Saficus"
+      />
+    </div>
   </section>
 
   <footer>
