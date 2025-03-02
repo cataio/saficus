@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <title>Saficus: Coming Soon</title>
-    <!-- Import a Google Font -->
+    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -17,29 +17,25 @@
         box-sizing: border-box;
       }
 
-      /* Body and Background */
       body {
         font-family: "Roboto Slab", serif;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         background: linear-gradient(135deg, #65dfc9, #6cdbeb);
-        overflow: hidden;
+        overflow-x: hidden;
       }
 
-      /* Floating Circles */
+      /* Floating Circles for a Subtle Animation */
       .circle {
         position: absolute;
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.15);
         animation: float 6s ease-in-out infinite;
+        z-index: 0; /* behind the text */
       }
       .circle:nth-child(1) {
         width: 200px;
         height: 200px;
-        top: 20%;
-        left: 10%;
+        top: 10%;
+        left: 5%;
         animation-delay: 1s;
       }
       .circle:nth-child(2) {
@@ -49,9 +45,15 @@
         right: 5%;
         animation-delay: 3s;
       }
+      .circle:nth-child(3) {
+        width: 150px;
+        height: 150px;
+        top: 50%;
+        right: 40%;
+        animation-delay: 2s;
+      }
       @keyframes float {
-        0%,
-        100% {
+        0%, 100% {
           transform: translateY(0);
         }
         50% {
@@ -59,51 +61,101 @@
         }
       }
 
-      /* Container for Text/Button */
+      /* Main Container */
       .container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 1; /* text sits above circles */
+        padding: 2rem;
         text-align: center;
-        color: #ffffff;
-        z-index: 1; /* ensure text sits above circles */
       }
 
       .container h1 {
         font-size: 3rem;
+        color: #ffffff;
         margin-bottom: 1rem;
       }
 
       .container p {
-        font-size: 1.3rem;
-        margin-bottom: 2rem;
+        font-size: 1.2rem;
+        color: #ffffff;
         line-height: 1.5;
+        max-width: 600px;
+        margin: 0 auto 2rem auto;
       }
 
-      /* Button */
+      /* Button Styles */
       .btn {
-        background-color: #fff;
+        background-color: #ffffff;
         color: #6cdbeb;
         text-decoration: none;
-        padding: 0.8rem 1.5rem;
+        padding: 0.8rem 1.4rem;
         border-radius: 2rem;
         font-weight: 600;
+        margin: 0 0.5rem;
+        display: inline-block;
         transition: 0.3s ease;
       }
       .btn:hover {
         opacity: 0.85;
       }
+
+      /* Our Vision Section */
+      .vision {
+        background: #f9f9f9;
+        color: #333;
+        padding: 4rem 2rem;
+        text-align: center;
+      }
+      .vision h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+      .vision p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        max-width: 700px;
+        margin: 0 auto;
+      }
     </style>
   </head>
   <body>
+    <!-- Floating Circles -->
+    <div class="circle"></div>
     <div class="circle"></div>
     <div class="circle"></div>
 
+    <!-- Top Section / Landing -->
     <div class="container">
       <h1>Saficus</h1>
       <p>
-        The game that is not a game.<br />
-        AI-powered homework in Romania.<br />
-        Using play to teach the Romanian curriculum.
+        The game that is not a game. Homework with an AI twist.<br />
+        We create playful experiences that enrich the Romanian curriculum.<br />
+        Learn with interactive challenges. Coming soon.
       </p>
-      <a class="btn" href="#">Get Notified</a>
+
+      <!-- Buttons -->
+      <a
+        class="btn"
+        href="mailto:info@saficus.com?subject=Saficus%20Beta%20Access&body=I%20would%20like%20updates%20on%20Saficus."
+        >Get Notified</a
+      >
+      <a class="btn" href="#vision">Our Vision</a>
     </div>
+
+    <!-- Additional Section: Vision -->
+    <section class="vision" id="vision">
+      <h2>Our Vision</h2>
+      <p>
+        We combine AI with game design to create a new way of learning. Students
+        solve real problems that match the Romanian school curriculum. We keep
+        it simple, direct, and engaging. Our goal is to spark curiosity and
+        foster critical thinking. Watch this space as we move closer to launch.
+      </p>
+    </section>
   </body>
 </html>
