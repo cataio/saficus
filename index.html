@@ -1,36 +1,109 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <title>Saficus</title>
+    <meta charset="UTF-8" />
+    <title>Saficus: Coming Soon</title>
+    <!-- Import a Google Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      body {
-        display: flex;
-        height: 100vh;
+      /* Basic Reset */
+      * {
         margin: 0;
-        justify-content: center;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* Body and Background */
+      body {
+        font-family: "Roboto Slab", serif;
+        height: 100vh;
+        display: flex;
         align-items: center;
-        font-family: sans-serif;
+        justify-content: center;
+        background: linear-gradient(135deg, #65dfc9, #6cdbeb);
+        overflow: hidden;
       }
-      .center {
+
+      /* Floating Circles */
+      .circle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.15);
+        animation: float 6s ease-in-out infinite;
+      }
+      .circle:nth-child(1) {
+        width: 200px;
+        height: 200px;
+        top: 20%;
+        left: 10%;
+        animation-delay: 1s;
+      }
+      .circle:nth-child(2) {
+        width: 300px;
+        height: 300px;
+        bottom: 15%;
+        right: 5%;
+        animation-delay: 3s;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      /* Container for Text/Button */
+      .container {
         text-align: center;
+        color: #ffffff;
+        z-index: 1; /* ensure text sits above circles */
       }
-      h1 {
-        font-size: 2rem;
+
+      .container h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
       }
-      p {
-        font-size: 1.2rem;
+
+      .container p {
+        font-size: 1.3rem;
+        margin-bottom: 2rem;
+        line-height: 1.5;
+      }
+
+      /* Button */
+      .btn {
+        background-color: #fff;
+        color: #6cdbeb;
+        text-decoration: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 2rem;
+        font-weight: 600;
+        transition: 0.3s ease;
+      }
+      .btn:hover {
+        opacity: 0.85;
       }
     </style>
   </head>
   <body>
-    <div class="center">
-      <h1>Coming Soon</h1>
+    <div class="circle"></div>
+    <div class="circle"></div>
+
+    <div class="container">
+      <h1>Saficus</h1>
       <p>
-        The game that is not a game.<br>
-        Homework for an AI learning startup in Romania<br>
-        that uses games to teach the Romanian curriculum.
+        The game that is not a game.<br />
+        AI-powered homework in Romania.<br />
+        Using play to teach the Romanian curriculum.
       </p>
+      <a class="btn" href="#">Get Notified</a>
     </div>
   </body>
 </html>
