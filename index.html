@@ -1,161 +1,225 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Saficus: Coming Soon</title>
-    <!-- Google Font -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      /* Basic Reset */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Saficus - AI-driven education platform" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saficus</title>
+  <style>
+    /* Basic CSS reset and styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: sans-serif;
+    }
 
-      body {
-        font-family: "Roboto Slab", serif;
-        background: linear-gradient(135deg, #65dfc9, #6cdbeb);
-        overflow-x: hidden;
-      }
+    body {
+      background-color: #f8f9fa;
+      color: #333;
+      line-height: 1.6;
+    }
 
-      /* Floating Circles for a Subtle Animation */
-      .circle {
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.15);
-        animation: float 6s ease-in-out infinite;
-        z-index: 0; /* behind the text */
-      }
-      .circle:nth-child(1) {
-        width: 200px;
-        height: 200px;
-        top: 10%;
-        left: 5%;
-        animation-delay: 1s;
-      }
-      .circle:nth-child(2) {
-        width: 300px;
-        height: 300px;
-        bottom: 15%;
-        right: 5%;
-        animation-delay: 3s;
-      }
-      .circle:nth-child(3) {
-        width: 150px;
-        height: 150px;
-        top: 50%;
-        right: 40%;
-        animation-delay: 2s;
-      }
-      @keyframes float {
-        0%, 100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-20px);
-        }
-      }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #ffffff;
+      border-bottom: 1px solid #eaeaea;
+      padding: 0.5rem 1rem;
+    }
 
-      /* Main Container */
-      .container {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        z-index: 1; /* text sits above circles */
-        padding: 2rem;
-        text-align: center;
-      }
+    .logo {
+      display: flex;
+      align-items: center;
+    }
 
-      .container h1 {
-        font-size: 3rem;
-        color: #ffffff;
-        margin-bottom: 1rem;
-      }
+    .logo svg {
+      height: 40px;
+      margin-right: 8px;
+    }
 
-      .container p {
-        font-size: 1.2rem;
-        color: #ffffff;
-        line-height: 1.5;
-        max-width: 600px;
-        margin: 0 auto 2rem auto;
-      }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
 
-      /* Button Styles */
-      .btn {
-        background-color: #ffffff;
-        color: #6cdbeb;
-        text-decoration: none;
-        padding: 0.8rem 1.4rem;
-        border-radius: 2rem;
-        font-weight: 600;
-        margin: 0 0.5rem;
-        display: inline-block;
-        transition: 0.3s ease;
-      }
-      .btn:hover {
-        opacity: 0.85;
-      }
+    nav a {
+      color: #333;
+      text-decoration: none;
+      font-weight: 500;
+    }
 
-      /* Our Vision Section */
-      .vision {
-        background: #f9f9f9;
-        color: #333;
-        padding: 4rem 2rem;
-        text-align: center;
-      }
-      .vision h2 {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-      }
-      .vision p {
-        font-size: 1.1rem;
-        line-height: 1.6;
-        max-width: 700px;
-        margin: 0 auto;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Floating Circles -->
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
+    nav a:hover {
+      text-decoration: underline;
+    }
 
-    <!-- Top Section / Landing -->
-    <div class="container">
-      <h1>Saficus</h1>
-      <p>
-        The game that is not a game. Homework with an AI twist.<br />
-        We create playful experiences that enrich the Romanian curriculum.<br />
-        Learn with interactive challenges. Coming soon.
-      </p>
+    .hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 4rem 1rem;
+      background-color: #e9f2ff;
+    }
 
-      <!-- Buttons -->
-      <a
-        class="btn"
-        href="mailto:info@saficus.com?subject=Saficus%20Beta%20Access&body=I%20would%20like%20updates%20on%20Saficus."
-        >Get Notified</a
-      >
-      <a class="btn" href="#vision">Our Vision</a>
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+
+    /* Example image container styles */
+    .images-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      padding: 2rem 1rem;
+    }
+
+    .image-card {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      width: 300px;
+      text-align: center;
+    }
+
+    .image-card svg {
+      width: 100%;
+      height: 200px;
+      display: block;
+      background-color: #ccc;
+    }
+
+    .image-card p {
+      padding: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem 0;
+      background-color: #ffffff;
+      border-top: 1px solid #eaeaea;
+      margin-top: 2rem;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: #0070f3;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #0057c2;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <!-- Inline SVG Logo Prototype for Saficus -->
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-label="Saficus Logo">
+        <!-- Circle background -->
+        <circle cx="100" cy="100" r="100" fill="#0070f3"></circle>
+        <!-- Stylized 'S' shape -->
+        <path d="M50,100
+                 C50,60 150,60 150,100
+                 C150,140 50,140 50,100
+                 Z" fill="#fff" />
+      </svg>
+      <strong>Saficus</strong>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Welcome to Saficus</h1>
+    <p>
+      Saficus is an AI-driven platform dedicated to personalized learning for children. 
+      We generate adaptive exercises aligned to local curricula, ensuring every student 
+      gets a tailored experience that accelerates progress.
+    </p>
+    <a href="#features" class="btn-primary">Learn More</a>
+  </section>
+
+  <section id="features" class="images-section">
+    <!-- Placeholder Image Cards (inline SVG) -->
+    <div class="image-card">
+      <!-- Sample SVG Placeholder 1 -->
+      <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder Image 1">
+        <rect width="300" height="200" fill="#0070f3" />
+        <text x="50%" y="50%" fill="#fff" font-size="24" text-anchor="middle" alignment-baseline="middle">Image 1</text>
+      </svg>
+      <p>Interactive flashcards for quick knowledge checks.</p>
     </div>
 
-    <!-- Additional Section: Vision -->
-    <section class="vision" id="vision">
-      <h2>Our Vision</h2>
-      <p>
-        We combine AI with game design to create a new way of learning. Students
-        solve real problems that match the Romanian school curriculum. We keep
-        it simple, direct, and engaging. Our goal is to spark curiosity and
-        foster critical thinking. Watch this space as we move closer to launch.
-      </p>
-    </section>
-  </body>
+    <div class="image-card">
+      <!-- Sample SVG Placeholder 2 -->
+      <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder Image 2">
+        <rect width="300" height="200" fill="#4caf50" />
+        <text x="50%" y="50%" fill="#fff" font-size="24" text-anchor="middle" alignment-baseline="middle">Image 2</text>
+      </svg>
+      <p>Adaptive exercises tailored to each student's level.</p>
+    </div>
+
+    <div class="image-card">
+      <!-- Sample SVG Placeholder 3 -->
+      <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder Image 3">
+        <rect width="300" height="200" fill="#ff9800" />
+        <text x="50%" y="50%" fill="#fff" font-size="24" text-anchor="middle" alignment-baseline="middle">Image 3</text>
+      </svg>
+      <p>Real-time analytics for parents and educators.</p>
+    </div>
+  </section>
+
+  <section id="about" style="padding: 1rem 2rem;">
+    <h2>About Saficus</h2>
+    <p>
+      Saficus harnesses the power of machine learning to customize lesson plans and 
+      practice exercises for each student. By analyzing ongoing performance data, 
+      our adaptive engine ensures that students receive just the right challenge, 
+      right when they need it. With a robust curriculum alignment and intuitive design, 
+      Saficus aims to make high-quality, tailored education accessible to every child.
+    </p>
+  </section>
+
+  <section id="contact" style="padding: 1rem 2rem;">
+    <h2>Get in Touch</h2>
+    <p>
+      Ready to take the next step? Contact us to learn more about our platform 
+      or to schedule a demo.
+    </p>
+    <p><strong>Email:</strong> <a href="mailto:info@saficus.com">info@saficus.com</a></p>
+  </section>
+
+  <footer>
+    <p>&copy; <span id="year"></span> Saficus. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Simple script to update year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
 </html>
