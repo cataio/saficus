@@ -1,42 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
   <meta charset="UTF-8" />
-  <meta name="description" content="Saficus - AI-driven education platform" />
+  <meta name="description" content="Saficus - AI learning startup in Romania" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Saficus</title>
+  <title>Saficus - Edu Gaming</title>
   <style>
-    /* Basic CSS reset and styling */
-    * {
+    /* Basic reset and global styles */
+    *, *::before, *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    body {
-      background-color: #f8f9fa;
+    html, body {
+      height: 100%;
       color: #333;
-      line-height: 1.6;
+      background-color: #fafafa;
     }
 
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Header styling */
     header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      background-color: #ffffff;
-      border-bottom: 1px solid #eaeaea;
-      padding: 0.5rem 1rem;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background-color: #fff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 999;
     }
 
-    .logo {
+    .logo-container {
       display: flex;
       align-items: center;
     }
-
-    .logo svg {
-      height: 40px;
-      margin-right: 8px;
+    
+    .logo-svg {
+      width: 50px;
+      height: 50px;
+      margin-right: 0.5rem;
     }
 
     nav ul {
@@ -45,24 +55,27 @@
       gap: 1rem;
     }
 
-    nav a {
-      color: #333;
-      text-decoration: none;
+    nav li a {
       font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s;
     }
 
-    nav a:hover {
-      text-decoration: underline;
+    nav li a:hover {
+      background-color: #f5f5f5;
     }
 
+    /* Hero section */
     .hero {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 4rem 1rem;
-      background-color: #e9f2ff;
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, #72edf2 0%, #5151e5 100%);
+      color: #fff;
     }
 
     .hero h1 {
@@ -76,149 +89,243 @@
       margin-bottom: 2rem;
     }
 
-    /* Example image container styles */
-    .images-section {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
+    .btn-primary {
+      background-color: #f9c01c;
+      color: #333;
+      font-weight: bold;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      background-color: #f0b10c;
+    }
+
+    /* About section */
+    #about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    #about-img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #about-text {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    #about-text h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #5151e5;
+    }
+
+    /* Features / cards section */
+    #features {
+      background-color: #fff;
       padding: 2rem 1rem;
     }
 
-    .image-card {
-      background-color: #fff;
-      border: 1px solid #ddd;
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background-color: #f9f9f9;
       border-radius: 8px;
-      overflow: hidden;
-      width: 300px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
       text-align: center;
+      padding: 2rem;
+      transition: transform 0.3s;
     }
 
-    .image-card svg {
-      width: 100%;
-      height: 200px;
-      display: block;
-      background-color: #ccc;
+    .feature-card:hover {
+      transform: translateY(-5px);
     }
 
-    .image-card p {
-      padding: 1rem;
+    .feature-card h3 {
+      color: #5151e5;
+      margin-bottom: 1rem;
     }
 
-    footer {
+    .feature-card p {
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    /* Contact / CTA section */
+    #contact {
       text-align: center;
-      padding: 1rem 0;
-      background-color: #ffffff;
-      border-top: 1px solid #eaeaea;
-      margin-top: 2rem;
+      padding: 3rem 2rem;
+      background-color: #e9f2ff;
     }
 
-    .btn-primary {
-      display: inline-block;
+    #contact h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #5151e5;
+    }
+
+    #contact p {
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto 2rem auto;
+    }
+
+    #contact .btn-secondary {
       background-color: #0070f3;
       color: #fff;
       padding: 0.75rem 1.5rem;
       border-radius: 4px;
-      text-decoration: none;
       font-weight: 600;
-      transition: background-color 0.2s ease;
+      transition: background-color 0.3s ease;
     }
 
-    .btn-primary:hover {
-      background-color: #0057c2;
+    #contact .btn-secondary:hover {
+      background-color: #0058c4;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #fff;
+      border-top: 1px solid #eee;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      #about {
+        grid-template-columns: 1fr;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo">
-      <!-- Inline SVG Logo Prototype for Saficus -->
-      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-label="Saficus Logo">
-        <!-- Circle background -->
-        <circle cx="100" cy="100" r="100" fill="#0070f3"></circle>
-        <!-- Stylized 'S' shape -->
-        <path d="M50,100
-                 C50,60 150,60 150,100
-                 C150,140 50,140 50,100
-                 Z" fill="#fff" />
+    <div class="logo-container">
+      <!-- Inline SVG Logo (Placeholder) -->
+      <svg class="logo-svg" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" aria-label="Saficus Logo">
+        <circle cx="36" cy="36" r="36" fill="#5151e5" />
+        <path d="M25,36 C25,28 47,28 47,36 C47,44 25,44 25,36 Z" fill="#f9c01c"/>
       </svg>
       <strong>Saficus</strong>
     </div>
     <nav>
       <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#features">Features</a></li>
+        <li><a href="#about">Despre</a></li>
+        <li><a href="#features">Caracteristici</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
   </header>
 
   <section class="hero">
-    <h1>Welcome to Saficus</h1>
+    <h1>Jocul care nu-i joc, dar te pregătește la teme</h1>
     <p>
-      Saficus is an AI-driven platform dedicated to personalized learning for children. 
-      We generate adaptive exercises aligned to local curricula, ensuring every student 
-      gets a tailored experience that accelerates progress.
+      Bine ai venit la Saficus, platforma românească ce folosește inteligență artificială pentru a-ți transforma temele
+      în adevărate misiuni captivante. Tu înveți materia, iar jocul prinde viață!
     </p>
-    <a href="#features" class="btn-primary">Learn More</a>
+    <a href="#features" class="btn-primary">Hai să începem</a>
   </section>
 
-  <section id="features" class="images-section">
-    <!-- Placeholder Image Cards (inline SVG) -->
-    <div class="image-card">
-      <!-- Sample SVG Placeholder 1 -->
-      <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder Image 1">
-        <rect width="300" height="200" fill="#0070f3" />
-        <text x="50%" y="50%" fill="#fff" font-size="24" text-anchor="middle" alignment-baseline="middle">Image 1</text>
-      </svg>
-      <p>Interactive flashcards for quick knowledge checks.</p>
-    </div>
-
-    <div class="image-card">
-      <!-- Sample SVG Placeholder 2 -->
-      <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder Image 2">
-        <rect width="300" height="200" fill="#4caf50" />
-        <text x="50%" y="50%" fill="#fff" font-size="24" text-anchor="middle" alignment-baseline="middle">Image 2</text>
-      </svg>
-      <p>Adaptive exercises tailored to each student's level.</p>
-    </div>
-
-    <div class="image-card">
-      <!-- Sample SVG Placeholder 3 -->
-      <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder Image 3">
-        <rect width="300" height="200" fill="#ff9800" />
-        <text x="50%" y="50%" fill="#fff" font-size="24" text-anchor="middle" alignment-baseline="middle">Image 3</text>
-      </svg>
-      <p>Real-time analytics for parents and educators.</p>
+  <section id="about">
+    <img
+      id="about-img"
+      src="https://via.placeholder.com/600x400?text=Imagine+despre+AI+%26+Educa%C8%9Bie"
+      alt="Educație și AI"
+    />
+    <div id="about-text">
+      <h2>Despre Saficus</h2>
+      <p>
+        Saficus este un proiect educațional românesc, construit în jurul ideii că “temele” pot fi distractive
+        și eficiente în același timp. Folosim inteligența artificială pentru a genera exerciții personalizate,
+        jocuri pe nivele și evaluări care se ajustează ritmului tău de învățare. Aliniem conținutul la curriculumul
+        național, astfel încât să te pregătim eficient pentru școală și examene, fără să-ți pierzi entuziasmul.
+      </p>
+      <p>
+        “Jocul care nu-i joc” este exact experiența pe care dorim să ți-o oferim: când deschizi Saficus,
+        intri într-o lume interactivă, dar fiecare misiune rezolvată te aduce mai aproape de obiectivele
+        școlare, iar AI-ul nostru te va ghida pas cu pas, pentru a-ți depăși limitele.
+      </p>
     </div>
   </section>
 
-  <section id="about" style="padding: 1rem 2rem;">
-    <h2>About Saficus</h2>
-    <p>
-      Saficus harnesses the power of machine learning to customize lesson plans and 
-      practice exercises for each student. By analyzing ongoing performance data, 
-      our adaptive engine ensures that students receive just the right challenge, 
-      right when they need it. With a robust curriculum alignment and intuitive design, 
-      Saficus aims to make high-quality, tailored education accessible to every child.
-    </p>
+  <section id="features">
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3>Învățare Adaptivă</h3>
+        <p>
+          Algoritmii noștri AI detectează punctele tale forte și pe cele slabe, ajustând sarcinile
+          ca tu să rămâi în zona optimă de învățare. Fără plictiseală, fără nivel prea ridicat –
+          doar progres constant.
+        </p>
+      </div>
+      <div class="feature-card">
+        <h3>Gamificare Smart</h3>
+        <p>
+          Transformăm temele într-o aventură. Acumulezi puncte, urci în nivel și câștigi
+          recompense virtuale, care-ți mențin motivația. Cu Saficus, “Tema la română” n-a fost
+          niciodată mai interactivă.
+        </p>
+      </div>
+      <div class="feature-card">
+        <h3>Aliniere la Curriculum</h3>
+        <p>
+          Conținutul e corelat cu programa școlară din România, pentru fiecare nivel de vârstă.
+          Astfel, tot ce rezolvi în platformă se regăsește și la ore, fără timp pierdut pe
+          lucruri care nu contează.
+        </p>
+      </div>
+      <div class="feature-card">
+        <h3>Monitorizare în timp real</h3>
+        <p>
+          Profesorii și părinții pot urmări progresul, primind rapoarte clare și detaliate
+          despre evoluția elevului. Informațiile te ajută să știi unde excelezi și la ce mai ai de
+          lucrat.
+        </p>
+      </div>
+    </div>
   </section>
 
-  <section id="contact" style="padding: 1rem 2rem;">
-    <h2>Get in Touch</h2>
+  <section id="contact">
+    <h2>Vrei să afli mai multe?</h2>
     <p>
-      Ready to take the next step? Contact us to learn more about our platform 
-      or to schedule a demo.
+      Suntem aici pentru a te ajuta să descoperi cum “tema” se poate transforma într-o aventură
+      cu sens. Contactează-ne și hai să construim împreună viitorul educației în România.
     </p>
-    <p><strong>Email:</strong> <a href="mailto:info@saficus.com">info@saficus.com</a></p>
+    <a href="mailto:info@saficus.com" class="btn-secondary">Scrie-ne</a>
   </section>
 
   <footer>
-    <p>&copy; <span id="year"></span> Saficus. All rights reserved.</p>
+    <p>&copy; <span id="year"></span> Saficus | Toate drepturile rezervate</p>
   </footer>
 
   <script>
-    // Simple script to update year in footer
+    // Update the footer year automatically
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
