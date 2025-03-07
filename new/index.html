@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8" />
+  <meta name="description" content="Saficus - Educație Personalizată prin AI" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saficus</title>
+  <style>
+    body {
+      background-color: #ffffff;
+      font-family: "Courier New", Courier, monospace; /* Monospace style */
+      color: #000000;
+      margin: 2em;
+      line-height: 1.6;
+      max-width: 800px;
+    }
+    h1, h2, h3, h4 {
+      margin: 1em 0 0.5em;
+    }
+    hr {
+      margin: 2em 0;
+    }
+    code {
+      background: #f3f3f3;
+      padding: 2px 4px;
+    }
+    input[type="text"] {
+      font-family: inherit;
+      padding: 2px;
+      width: 60px;
+      margin-left: 5px;
+    }
+    button {
+      font-family: inherit;
+      padding: 5px 10px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    canvas {
+      display: block;
+      margin: 1em 0;
+      border: 1px solid #ccc;
+    }
+    /* Basic responsiveness */
+    @media screen and (max-width: 600px) {
+      body {
+        margin: 1em;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Page Header -->
+  <h1>Saficus - Educație Personalizată prin AI</h1>
+  <hr />
+
+  <!-- Introduction / Markdown-like content -->
+  <p><strong>Saficus</strong> este un startup care utilizează inteligența artificială pentru a personaliza exerciții educaționale pentru copiii din România, pe baza cunoștințelor lor și a <em>programei naționale</em>. Prin tehnologie avansată și algoritmi de învățare adaptivă, platforma noastră generează exerciții și jocuri interactive aliniate cu cerințele curriculare, ajutând elevii să progreseze într-un mod eficient, captivant și personalizat.</p>
+
+  <hr />
+
+  <h2>EduKid AI – Platforma noastră de bază</h2>
+
+  <h3>1. Descrierea produsului</h3>
+  <ul>
+    <li><strong>Platformă educațională inteligentă</strong> care se adaptează la nivelul și stilul fiecărui elev.</li>
+    <li><strong>Exerciții practice personalizate</strong> și <strong>jocuri interactive</strong>, calibrate conform programei școlare naționale.</li>
+    <li><strong>Evaluare inițială</strong> ce determină nivelul actual al elevului, generând un plan de învățare adaptat.</li>
+    <li><strong>Feedback în timp real</strong> și <strong>gamificare</strong> pentru o implicare mai mare a copiilor.</li>
+  </ul>
+
+  <h3>2. Tehnologia utilizată</h3>
+  <ul>
+    <li><strong>Inteligență Artificială</strong> și algoritmi avansați de <em>machine learning</em> pentru personalizarea traseului de învățare.</li>
+    <li><em>Knowledge Tracing</em> pentru monitorizarea progresului și ajustarea permanentă a dificultății.</li>
+    <li><strong>Flashcard-uri inteligente</strong> generate prin <em>NLP</em> și tehnici de <em>spaced repetition</em>.</li>
+    <li>Infrastructură <strong>cloud scalabilă</strong>, cu accent pe <strong>securitatea datelor</strong> elevilor.</li>
+  </ul>
+
+  <h3>3. Impactul educațional</h3>
+  <ul>
+    <li><strong>Creșterea motivației</strong> și a autonomiei în procesul de învățare.</li>
+    <li><strong>Îmbunătățirea retenției informației</strong> prin repetare eșalonată.</li>
+    <li><strong>Rapoarte de progres</strong> detaliate pentru părinți și profesori.</li>
+    <li>O abordare <strong>centrată pe elev</strong>, care sprijină toți copiii să își atingă potențialul maxim.</li>
+  </ul>
+
+  <h3>4. Scalabilitate și viabilitate</h3>
+  <ul>
+    <li><strong>Arhitectură modulară</strong> și găzduire în cloud pentru suport simultan pentru un număr mare de elevi.</li>
+    <li>Model de business <strong>freemium</strong>, cu acces de bază gratuit și funcționalități premium pe abonament.</li>
+    <li><strong>Expansiune internațională</strong> posibilă în alte țări cu nevoi educaționale similare.</li>
+  </ul>
+
+  <h3>5. Avantaje competitive</h3>
+  <ul>
+    <li><strong>Aliniere locală</strong> cu programa românească și <strong>personalizare avansată</strong>.</li>
+    <li><strong>Tehnologie AI proprietară</strong> și utilizare inteligentă a datelor pentru recomandări precise.</li>
+    <li><strong>Experiență captivantă</strong> prin jocuri educaționale și elemente de gamificare.</li>
+    <li><strong>Echipă interdisciplinară</strong> (specialiști AI, profesori și designeri) cu experiență pedagogică solidă.</li>
+  </ul>
+
+  <hr />
+
+  <h2>Demonstrație interactivă (Three.js)</h2>
+  <p>Mai jos găsești un simplu <strong>cub 3D</strong> redat cu Three.js. Rezolvă <strong>3 probleme de adunare</strong> pentru clasa a III-a, folosind metoda de <strong>adunare Gauss</strong>. Dacă toate răspunsurile sunt corecte, cubul își schimbă culoarea!</p>
+
+  <canvas id="myCube" width="600" height="400"></canvas>
+
+  <p>
+    <strong>Probleme de adunare (clasa a III-a):</strong>
+    <br />1. 1 + 2 + 3 + 4 + 5 = 
+    <input id="ans1" type="text" /> 
+    <br />2. 1 + 2 + 3 + ... + 10 = 
+    <input id="ans2" type="text" />
+    <br />3. 1 + 2 + 3 + ... + 20 = 
+    <input id="ans3" type="text" />
+  </p>
+  <button onclick="verificaRezultate()">Verifică rezultatele</button>
+
+  <!-- Include Three.js and the interactive script -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.136.0/build/three.min.js"></script>
+  <script>
+    // ----- Configurare scenă, cameră, renderer -----
+    const canvas = document.getElementById('myCube');
+    const renderer = new THREE.WebGLRenderer({ canvas });
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color('#f3f3f3');
+
+    const camera = new THREE.PerspectiveCamera(
+      40,
+      canvas.clientWidth / canvas.clientHeight,
+      0.1,
+      1000
+    );
+    camera.position.z = 5;
+
+    // ----- Creare cub -----
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    const material = new THREE.MeshBasicMaterial({ color: '#5555ff' });
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    // ----- Animare -----
+    function animate() {
+      requestAnimationFrame(animate);
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // ----- Funcție verificare rezultate -----
+    function verificaRezultate() {
+      const r1 = document.getElementById("ans1").value.trim();
+      const r2 = document.getElementById("ans2").value.trim();
+      const r3 = document.getElementById("ans3").value.trim();
+
+      // Rezultatele corecte (formulă Gauss n(n+1)/2)
+      const correct1 = 15;  // 1+2+3+4+5
+      const correct2 = 55;  // 1+...+10
+      const correct3 = 210; // 1+...+20
+
+      if (
+        parseInt(r1) === correct1 &&
+        parseInt(r2) === correct2 &&
+        parseInt(r3) === correct3
+      ) {
+        // Schimbă culoarea cubului la verde dacă toate sunt corecte
+        cube.material.color.set('#00bb00');
+        alert("Felicitări! Toate răspunsurile sunt corecte!");
+      } else {
+        cube.material.color.set('#ff5555');
+        alert("Mai încearcă! Unul sau mai multe răspunsuri sunt greșite.");
+      }
+    }
+  </script>
+
+  <hr />
+
+  <h2>Contact și informații suplimentare</h2>
+  <p>
+    <strong>Site</strong>: 
+    <a href="https://www.saficus.com" target="_blank">saficus.com</a><br />
+    <strong>Email</strong>: contact@saficus.com<br />
+    <strong>Adresă</strong>: București, România
+  </p>
+  <p>
+    Ne poți scrie pentru:<br />
+    - Detalii despre planurile platformei, licențe, abonamente.<br />
+    - Sugestii și parteneriate cu școli, profesori și investitori.<br />
+    - Informații despre posibilitatea de a colabora în programul <strong>Google AI Startups</strong>.
+  </p>
+
+  <hr />
+
+  <p>© 2025 Saficus<br />
+  <em>Versiune demo, în curs de dezvoltare.</em></p>
+
+</body>
+</html>
