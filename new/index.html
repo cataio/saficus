@@ -20,13 +20,13 @@
   <link rel="stylesheet" href="/styles/main.css" />
   <style>
     :root {
-      --primary-color: #5555ff;
-      --success-color: #00bb00;
-      --error-color: #ff5555;
-      --bg-color: #ffffff;
-      --text-color: #000000;
-      --light-bg: #f3f3f3;
-      --border-color: #cccccc;
+      --primary-color: #7d7dff;
+      --success-color: #00dd00;
+      --error-color: #ff7777;
+      --bg-color: #121212;
+      --text-color: #f0f0f0;
+      --light-bg: #1e1e1e;
+      --border-color: #444444;
     }
     
     body {
@@ -51,6 +51,7 @@
       background: var(--light-bg);
       padding: 2px 4px;
       border-radius: 3px;
+      color: #a0e0ff;
     }
     .form-group {
       margin-bottom: 1em;
@@ -66,6 +67,8 @@
       margin-left: 5px;
       border: 1px solid var(--border-color);
       border-radius: 3px;
+      background-color: #2a2a2a;
+      color: var(--text-color);
     }
     button {
       font-family: inherit;
@@ -98,6 +101,7 @@
       padding: 20px;
       border-radius: 5px;
       margin: 2em 0;
+      border: 1px solid #333333;
     }
     /* Basic responsiveness */
     @media screen and (max-width: 600px) {
@@ -246,7 +250,7 @@
       renderer.setPixelRatio(window.devicePixelRatio);
 
       const scene = new THREE.Scene();
-      scene.background = new THREE.Color('#f3f3f3');
+      scene.background = new THREE.Color('#121212');
 
       const camera = new THREE.PerspectiveCamera(
         40,
@@ -267,8 +271,8 @@
       // ----- Creare cub -----
       const geometry = new THREE.BoxGeometry(1, 1, 1);
       const material = new THREE.MeshPhongMaterial({ 
-        color: '#5555ff',
-        shininess: 50
+        color: '#7d7dff',
+        shininess: 60
       });
       const cube = new THREE.Mesh(geometry, material);
       scene.add(cube);
@@ -321,12 +325,12 @@
       ) {
         // Schimbă culoarea cubului la verde dacă toate sunt corecte
         if (window.cube) {
-          window.cube.material.color.set('#00bb00');
+          window.cube.material.color.set('#00dd00');
         }
         alert("Felicitări! Toate răspunsurile sunt corecte!");
       } else {
         if (window.cube) {
-          window.cube.material.color.set('#ff5555');
+          window.cube.material.color.set('#ff7777');
         }
         alert("Mai încearcă! Unul sau mai multe răspunsuri sunt greșite.");
       }
