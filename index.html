@@ -5,6 +5,20 @@
   <meta name="description" content="Saficus - AI learning startup in Romania" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Saficus - Edu Gaming</title>
+  
+  <!-- Favicon support -->
+  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+  
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:title" content="Saficus - Edu Gaming AI">
+  <meta property="og:description" content="Platforma românească ce folosește inteligență artificială pentru a transforma temele în misiuni captivante">
+  <meta property="og:image" content="assets/images/og-image-saficus.jpg">
+  <meta property="og:url" content="https://saficus.ro">
+  <meta name="twitter:card" content="summary_large_image">
+  
   <style>
     /* Basic reset and global styles */
     *, *::before, *::after {
@@ -262,6 +276,43 @@
         grid-template-columns: 1fr;
       }
     }
+
+    /* Added styles for the contact form */
+    .contact-form {
+      display: grid;
+      gap: 1rem;
+      max-width: 500px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    
+    .contact-form textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    
+    /* Language selector styles */
+    .language-selector {
+      display: flex;
+      align-items: center;
+      margin-left: 1rem;
+    }
+    
+    .language-selector select {
+      padding: 0.25rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
   </style>
 </head>
 <body>
@@ -282,6 +333,13 @@
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
+    <!-- Added language selector -->
+    <div class="language-selector">
+      <select aria-label="Selectează limba">
+        <option value="ro" selected>RO</option>
+        <option value="en">EN</option>
+      </select>
+    </div>
   </header>
 
   <!-- Hero Section -->
@@ -384,7 +442,7 @@
     </div>
   </section>
 
-  <!-- Contact Section -->
+  <!-- Contact Section with form -->
   <section id="contact">
     <div id="contact-content">
       <h2>Vrei să afli mai multe?</h2>
@@ -392,7 +450,17 @@
         Suntem aici pentru a te ajuta să descoperi cum “tema” se poate transforma într-o aventură
         cu sens. Contactează-ne și hai să construim împreună viitorul educației în România.
       </p>
-      <a href="mailto:info@saficus.com" class="btn-secondary">Scrie-ne</a>
+      
+      <!-- Added contact form -->
+      <form class="contact-form" action="/submit-form" method="POST">
+        <input type="text" name="name" placeholder="Numele tău" required aria-label="Numele tău">
+        <input type="email" name="email" placeholder="Email-ul tău" required aria-label="Email-ul tău">
+        <textarea name="message" placeholder="Mesajul tău" required aria-label="Mesajul tău"></textarea>
+        <button type="submit" class="btn-secondary">Trimite mesajul</button>
+      </form>
+      
+      <p style="margin-top: 1rem;">Sau scrie-ne direct:</p>
+      <a href="mailto:info@saficus.com" class="btn-secondary">Email: info@saficus.com</a>
     </div>
     <!-- Contact / CTA Image -->
     <div id="contact-img-container">
@@ -405,6 +473,18 @@
 
   <footer>
     <p>&copy; <span id="year"></span> Saficus | Toate drepturile rezervate</p>
+    <!-- Added social media icons -->
+    <div class="social-icons" style="margin-top: 1rem;">
+      <a href="https://facebook.com/saficus" aria-label="Facebook Saficus">
+        <img src="assets/images/facebook-icon.png" alt="" width="24" height="24">
+      </a>
+      <a href="https://instagram.com/saficus" aria-label="Instagram Saficus">
+        <img src="assets/images/instagram-icon.png" alt="" width="24" height="24">
+      </a>
+      <a href="https://linkedin.com/company/saficus" aria-label="LinkedIn Saficus">
+        <img src="assets/images/linkedin-icon.png" alt="" width="24" height="24">
+      </a>
+    </div>
   </footer>
 
   <script>
