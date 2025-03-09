@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Simple FPS Example</title>
+    <!-- Load Three.js from a CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
+    <!-- Load PointerLockControls from the Three.js examples folder -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/examples/js/controls/PointerLockControls.js"></script>
+  </head>
+  <body style="margin: 0; overflow: hidden;">
+    <script>
+      // Basic setup
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x202020);
+
+      // Create camera
+      const camera = new THREE.PerspectiveCamera(
+        75,                    // Field of view
+        window.innerWidth / window.innerHeight,  // Aspect ratio
+        0.1,                   // Near clipping plane
+        1000                   // Far clipping plane
+      );
+
+      // Create renderer
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      // Add a simple light
+      const light = new THREE.DirectionalLight(0xffffff, 1);
+      light.position.set(10, 10, 10);
+      scene.add(light);
+
+      // Add a floor
+      const floorGeometry = new THREE.PlaneGeometry(200, 200);
+      const floorMaterial = new THREE.MeshPhongMaterial({ color: 0x404040 });
+      const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+      floor.rotation.x = -Math.PI / 2; // Make the plane horizontal
+      scene.add(floor);
+
+      // Set up PointerLockControls
+      const controls = new THREE.PointerLockControls(camera, document.body);
+      
+      // Listen for clicks to lock the pointer (enter FPS mode)
+      document.addEventListener('click', () => {
+        controls.lock();
+      });
+
+      // Keep track of movement
+      const moveSpeed = 0.1;
+      const velocity = new THREE.Vector3();
+      const direction = new THREE.Vector3();
+      const keys = {
+        forward: false,
+        backward: false,
+        left: false,
+        right: false
+      };
+
+      // Keydown events
+      document.addEventListener('keydown', (event) => {
+        switch (event.code) {
+          case 'KeyW':
+            keys.forward = true;
+            break;
+          case 'KeyS':
+            keys.backward = true;
+            break;
+          case 'KeyA':
+            keys.left = true;
+            break;
+          case 'KeyD':
+            keys.right = true;
+            break;
+        }
+      });
+
+      // Keyup events
+      document.addEventListener('keyup', (event) => {
+        switch (event.code) {
+          case 'KeyW':
+            keys.forward = false;
+            break;
+          case 'KeyS':
+            keys.backward = false;
+            break;
+          case 'KeyA':
+            keys.left = false;
+            break;
+          case 'KeyD':
+            keys.right = false;
+            break;
+        }
+      });
+
+      // Animation loop
+      function animate() {
+        requestAnimationFrame(animate);
+
+        if (controls.isLocked) {
+          // Determine direction
+          direction.z = Number(keys.backward) - Number(keys.forward);
+          direction.x = Number(keys.right) - Number(keys.left);
+          direction.normalize(); // So diagonal movement isn't faster
+
+          // Update velocity
+          velocity.x = direction.x * moveSpeed;
+          velocity.z = direction.z * moveSpeed;
+
+          // Move the camera
+          controls.moveRight(velocity.x);
+          controls.moveForward(velocity.z);
+        }
+
+        renderer.render(scene, camera);
+      }
+
+      animate();
+
+    </script>
+  </body>
+</html>
