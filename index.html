@@ -50,6 +50,7 @@
       position: sticky;
       top: 0;
       z-index: 999;
+      flex-wrap: wrap;
     }
 
     .logo-container {
@@ -78,6 +79,25 @@
 
     nav li a:hover {
       background-color: #f5f5f5;
+    }
+
+    /* Added hamburger menu styles */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+      cursor: pointer;
+    }
+    
+    .menu-toggle span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: #333;
+      border-radius: 3px;
+      transition: all 0.3s ease;
     }
 
     /* Hero section */
@@ -275,6 +295,45 @@
       #contact {
         grid-template-columns: 1fr;
       }
+      
+      /* Mobile header styles */
+      .menu-toggle {
+        display: flex;
+        order: 3;
+      }
+      
+      nav {
+        order: 4;
+        flex-basis: 100%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        margin-top: 0;
+      }
+      
+      nav.active {
+        max-height: 200px;
+        margin-top: 1rem;
+      }
+      
+      nav ul {
+        flex-direction: column;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      
+      nav li {
+        text-align: center;
+        margin: 0;
+        padding: 0.5rem 0;
+      }
+      
+      .language-selector {
+        margin-left: auto;
+        margin-right: 1rem;
+        order: 2;
+      }
     }
 
     /* Added styles for the contact form */
@@ -312,6 +371,7 @@
       border: 1px solid #ddd;
       border-radius: 4px;
       font-size: 0.9rem;
+      cursor: pointer;
     }
 
     /* Added styles for the interactive cube demo */
@@ -372,16 +432,25 @@
       />
       <strong>Saficus</strong>
     </div>
-    <nav>
+
+    <!-- Added hamburger menu toggle -->
+    <div class="menu-toggle" id="menuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <nav id="mainNav">
       <ul>
-        <li><a href="#about">Despre</a></li>
-        <li><a href="#features">Caracteristici</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about" class="nav-link">Despre</a></li>
+        <li><a href="#features" class="nav-link">Caracteristici</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
     </nav>
+
     <!-- Added language selector -->
     <div class="language-selector">
-      <select aria-label="Selectează limba">
+      <select id="languageSelect" aria-label="Selectează limba">
         <option value="ro" selected>RO</option>
         <option value="en">EN</option>
       </select>
@@ -576,6 +645,77 @@
         console.error("ThreeJS initialization error:", e);
         document.getElementById('canvas-error').style.display = 'block';
         document.getElementById('myCube').style.display = 'none';
+      }
+
+      // Mobile menu toggle
+      const menuToggle = document.getElementById('menuToggle');
+      const mainNav = document.getElementById('mainNav');
+      const navLinks = document.querySelectorAll('.nav-link');
+
+      menuToggle.addEventListener('click', function() {
+        mainNav.classList.toggle('active');
+      });
+
+      // Close menu when a nav link is clicked
+      navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          mainNav.classList.remove('active');
+        });
+      });
+
+      // Language selector functionality
+      const languageSelect = document.getElementById('languageSelect');
+      
+      // Initialize with stored language preference if available
+      const storedLang = localStorage.getItem('saficusLanguage');
+      if (storedLang) {
+        languageSelect.value = storedLang;
+        updateLanguage(storedLang);
+      }
+      
+      languageSelect.addEventListener('change', function() {
+        const selectedLang = this.value;
+        updateLanguage(selectedLang);
+        localStorage.setItem('saficusLanguage', selectedLang);
+      });
+
+      function updateLanguage(lang) {
+        const translations = {
+          'ro': {
+            'hero-title': 'Învățare Gamificată - Educație prin Joc',
+            'hero-text': 'Bine ai venit la Saficus, platforma românească ce folosește inteligență artificială pentru a transforma procesul de învățare într-o experiență distractivă și captivantă. Rezolvi exerciții, câștigi puncte și progresezi în timp ce îți consolidezi cunoștințele!',
+            'cta-button': 'Hai să începem',
+            'demo-title': 'Încearcă o demonstrație!',
+            'about-nav': 'Despre',
+            'features-nav': 'Caracteristici',
+            'contact-nav': 'Contact'
+            // Add more translations as needed
+          },
+          'en': {
+            'hero-title': 'Gamified Learning - Education Through Play',
+            'hero-text': 'Welcome to Saficus, the Romanian platform that uses artificial intelligence to transform the learning process into a fun and engaging experience. Solve exercises, earn points, and progress while strengthening your knowledge!',
+            'cta-button': 'Let\'s start',
+            'demo-title': 'Try a demo!',
+            'about-nav': 'About',
+            'features-nav': 'Features',
+            'contact-nav': 'Contact'
+            // Add more translations as needed
+          }
+        };
+
+        // Update navigation text
+        document.querySelectorAll('.nav-link')[0].textContent = translations[lang]['about-nav'];
+        document.querySelectorAll('.nav-link')[1].textContent = translations[lang]['features-nav'];
+        document.querySelectorAll('.nav-link')[2].textContent = translations[lang]['contact-nav'];
+        
+        // Update hero section text
+        document.querySelector('.hero h1').textContent = translations[lang]['hero-title'];
+        document.querySelector('.hero p').textContent = translations[lang]['hero-text'];
+        document.querySelector('.hero .btn-primary').textContent = translations[lang]['cta-button'];
+        document.querySelector('.hero-demo-container h2').textContent = translations[lang]['demo-title'];
+
+        // Update HTML lang attribute
+        document.documentElement.lang = lang;
       }
     });
 
