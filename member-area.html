@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Saficus Member Area - Learning dashboard" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saficus - Zona Mea</title>
+  
+  <!-- Favicon support -->
+  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
+  
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    :root {
+      --primary-color: #5151e5;
+      --secondary-color: #f9c01c;
+      --dark-color: #333;
+      --light-color: #fafafa;
+      --success-color: #28a745;
+      --info-color: #17a2b8;
+      --warning-color: #ffc107;
+      --danger-color: #dc3545;
+      --gray-color: #6c757d;
+      --light-gray: #f1f1f1;
+      --shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    body {
+      background-color: var(--light-color);
+      color: var(--dark-color);
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Header styles */
+    header {
+      background-color: white;
+      box-shadow: var(--shadow);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-img {
+      width: 40px;
+      height: 40px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+
+    nav a {
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      background-color: var(--light-gray);
+    }
+
+    .user-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    /* Hamburger menu for mobile */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+      cursor: pointer;
+    }
+    
+    .menu-toggle span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: var(--dark-color);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    /* Main content */
+    main {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 2rem;
+    }
+
+    .main-content {
+      display: grid;
+      gap: 2rem;
+    }
+
+    .sidebar {
+      display: grid;
+      gap: 2rem;
+    }
+
+    /* Cards */
+    .card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .welcome-card {
+      background: linear-gradient(135deg, #72edf2 0%, #5151e5 100%);
+      color: white;
+    }
+
+    .welcome-card .card-title {
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    /* Progress bars */
+    .progress-container {
+      margin-top: 1rem;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .progress-bar {
+      height: 10px;
+      background-color: var(--light-gray);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progress-value {
+      height: 100%;
+      background-color: var(--primary-color);
+      border-radius: 5px;
+    }
+
+    /* Course cards */
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .course-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .course-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+    }
+
+    .course-progress {
+      margin-top: auto;
+    }
+
+    /* Stats */
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--gray-color);
+    }
+
+    /* Achievements */
+    .achievements {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .achievement {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .achievement-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--light-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .achievement.unlocked .achievement-icon {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .achievement-details h4 {
+      margin-bottom: 0.25rem;
+    }
+
+    .achievement-details p {
+      font-size: 0.85rem;
+      color: var(--gray-color);
+    }
+
+    /* Notifications */
+    .notification {
+      display: flex;
+      align-items: flex-start;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--light-gray);
+    }
+
+    .notification:last-child {
+      border-bottom: none;
+    }
+
+    .notification-dot {
+      width: 10px;
+      height: 10px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      margin-right: 1rem;
+      flex-shrink: 0;
+      margin-top: 0.5rem;
+    }
+
+    .notification-content {
+      flex-grow: 1;
+    }
+
+    .notification-time {
+      color: var(--gray-color);
+      font-size: 0.8rem;
+      margin-top: 0.25rem;
+    }
+
+    /* Footer */
+    footer {
+      background-color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+      border-top: 1px solid var(--light-gray);
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 1rem;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+
+    .badge-success {
+      background-color: var(--success-color);
+      color: white;
+    }
+
+    .badge-warning {
+      background-color: var(--warning-color);
+      color: var(--dark-color);
+    }
+
+    .badge-info {
+      background-color: var(--info-color);
+      color: white;
+    }
+
+    /* Button */
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      border: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #4141d0;
+    }
+
+    .btn-secondary {
+      background-color: var(--secondary-color);
+      color: var(--dark-color);
+    }
+
+    .btn-secondary:hover {
+      background-color: #e0ac0f;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .stats-container {
+        grid-template-columns: 1fr 1fr;
+      }
+      
+      /* Mobile menu */
+      .menu-toggle {
+        display: flex;
+        order: 3;
+      }
+      
+      nav {
+        order: 4;
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+      }
+      
+      nav.active {
+        max-height: 200px;
+        margin-top: 1rem;
+      }
+      
+      nav ul {
+        flex-direction: column;
+        width: 100%;
+      }
+      
+      .user-controls {
+        margin-left: auto;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="assets/images/logo-saficus.png" alt="Saficus Logo" class="logo-img">
+      <strong>Saficus</strong>
+    </div>
+    
+    <div class="menu-toggle" id="menuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    
+    <nav id="mainNav">
+      <ul>
+        <li><a href="#dashboard">Dashboard</a></li>
+        <li><a href="#courses">Cursuri</a></li>
+        <li><a href="#challenges">Provocări</a></li>
+        <li><a href="#achievements">Realizări</a></li>
+        <li><a href="#leaderboard">Clasament</a></li>
+      </ul>
+    </nav>
+    
+    <div class="user-controls">
+      <span class="badge badge-success">500 puncte</span>
+      <div class="avatar" title="Profil utilizator">AP</div>
+    </div>
+  </header>
+
+  <main>
+    <div class="dashboard">
+      <div class="main-content">
+        <!-- Welcome Card -->
+        <section class="card welcome-card">
+          <h2 class="card-title">Bun venit înapoi, Andrei!</h2>
+          <p>Ai completat 3 exerciții săptămâna aceasta și ești cu 25% mai productiv decât săptămâna trecută. Continuă tot așa!</p>
+          <div class="progress-container">
+            <div class="progress-label">
+              <span>Nivel 4 - Explorator de Cunoaștere</span>
+              <span>75%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-value" style="width: 75%"></div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Stats -->
+        <section class="card">
+          <h3 class="card-title">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 12L10 15L17 8M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Statisticile tale
+          </h3>
+          <div class="stats-container">
+            <div class="stat-card">
+              <div class="stat-value">42</div>
+              <div class="stat-label">Exerciții rezolvate</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">8</div>
+              <div class="stat-label">Ore de studiu</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">500</div>
+              <div class="stat-label">Puncte acumulate</div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Current Courses -->
+        <section class="card">
+          <h3 class="card-title">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 14L8.5 10.5M12 14L15.5 10.5M12 14V21M4 10H20M19 16.5C19 17.8807 15.866 19 12 19C8.13401 19 5 17.8807 5 16.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Cursurile tale
+          </h3>
+          <div class="courses-grid">
+            <div class="card course-card">
+              <div class="course-icon">🧮</div>
+              <h4>Matematică - Clasa a IV-a</h4>
+              <p>Fracții și operații cu fracții</p>
+              <div class="progress-container course-progress">
+                <div class="progress-label">
+                  <span>Progres</span>
+                  <span>68%</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-value" style="width: 68%"></div>
+                </div>
+              </div>
+              <a href="#" class="btn btn-secondary" style="margin-top: 1rem;">Continuă</a>
+            </div>
+            <div class="card course-card">
+              <div class="course-icon">📝</div>
+              <h4>Limba Română</h4>
+              <p>Părțile de vorbire</p>
+              <div class="progress-container course-progress">
+                <div class="progress-label">
+                  <span>Progres</span>
+                  <span>45%</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-value" style="width: 45%"></div>
+                </div>
+              </div>
+              <a href="#" class="btn btn-secondary" style="margin-top: 1rem;">Continuă</a>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Achievements -->
+        <section class="card">
+          <h3 class="card-title">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 15C15.3137 15 18 12.3137 18 9C18 5.68629 15.3137 3 12 3C8.68629 3 6 5.68629 6 9C6 12.3137 8.68629 15 12 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 15V21M8.5 18H15.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Realizări recente
+          </h3>
+          <div class="achievements">
+            <div class="achievement unlocked">
+              <div class="achievement-icon">🔢</div>
+              <div class="achievement-details">
+                <h4>Matematician Junior</h4>
+                <p>Completarea a 10 exerciții de matematică</p>
+              </div>
+            </div>
+            <div class="achievement unlocked">
+              <div class="achievement-icon">🔥</div>
+              <div class="achievement-details">
+                <h4>Învățare constantă</h4>
+                <p>5 zile consecutive de studiu</p>
+              </div>
+            </div>
+            <div class="achievement">
+              <div class="achievement-icon">🏆</div>
+              <div class="achievement-details">
+                <h4>Maestru al cuvintelor</h4>
+                <p>Completarea tuturor exercițiilor de vocabular</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      
+      <div class="sidebar">
+        <!-- Daily Challenge -->
+        <section class="card">
+          <h3 class="card-title">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 8V12L15 15M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Provocarea zilei
+          </h3>
+          <p>Rezolvă 5 exerciții de matematică pentru a primi <strong>50 de puncte bonus</strong>!</p>
+          <div class="progress-container" style="margin: 1rem 0;">
+            <div class="progress-label">
+              <span>Progres</span>
+              <span>3/5</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-value" style="width: 60%"></div>
+            </div>
+          </div>
+          <a href="#" class="btn btn-primary" style="width: 100%;">Continuă provocarea</a>
+        </section>
+        
+        <!-- Upcoming Events -->
+        <section class="card">
+          <h3 class="card-title">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 7V3M16 7V3M7 11H17M5 21H19C20.1046 21 21 20.1046 21 19V7C21 5.89543 20.1046 5 19 5H5C3.89543 5 3 5.89543 3 7V19C3 20.1046 3.89543 21 5 21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Evenimente viitoare
+          </h3>
+          <div class="event" style="margin-bottom: 1rem;">
+            <h4>Quiz de matematică</h4>
+            <p style="color: var(--gray-color); font-size: 0.9rem;">Mâine, 10:00</p>
+            <span class="badge badge-warning">Participare opțională</span>
+          </div>
+          <div class="event">
+            <h4>Competiție de scriere creativă</h4>
+            <p style="color: var(--gray-color); font-size: 0.9rem;">15 Octombrie, 16:00</p>
+            <span class="badge badge-info">Premii speciale</span>
+          </div>
+        </section>
+        
+        <!-- Notifications -->
+        <section class="card">
+          <h3 class="card-title">
+            <svg width="24" height="24

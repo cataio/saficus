@@ -419,6 +419,78 @@
       border-radius: 8px;
       background-color: rgba(0,0,0,0.15);
     }
+
+    /* Login modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      overflow: auto;
+    }
+    
+    .modal-content {
+      background-color: #fff;
+      margin: 15% auto;
+      padding: 2rem;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 450px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      color: #aaa;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    .close-modal:hover {
+      color: #333;
+    }
+    
+    .login-form {
+      display: grid;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .login-form input {
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+      width: 100%;
+    }
+    
+    .login-message {
+      margin-top: 1rem;
+      padding: 0.5rem;
+      border-radius: 4px;
+      text-align: center;
+      display: none;
+    }
+    
+    .login-message.success {
+      background-color: #e7f4e4;
+      color: #2c7a2c;
+      display: block;
+    }
+    
+    .login-message.error {
+      background-color: #f9e3e3;
+      color: #c72121;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -465,7 +537,22 @@
       procesul de învățare într-o experiență distractivă și captivantă. Rezolvi exerciții, câștigi puncte și
       progresezi în timp ce îți consolidezi cunoștințele!
     </p>
-    <a href="#features" class="btn-primary">Hai să începem</a>
+    <!-- Replace simple button with login button -->
+    <button id="loginButton" class="btn-primary">Conectare / Înregistrare</button>
+
+    <!-- Add login modal -->
+    <div id="loginModal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>Conectare cu email</h2>
+        <p>Introdu adresa de email pentru a primi un link de autentificare:</p>
+        <form id="loginForm" class="login-form">
+          <input type="email" id="emailInput" placeholder="adresa@email.ro" required>
+          <button type="submit" class="btn-secondary">Trimite link de conectare</button>
+        </form>
+        <div id="loginMessage" class="login-message"></div>
+      </div>
+    </div>
 
     <!-- Interactive 3D cube demo instead of static image -->
     <div class="hero-demo-container">
@@ -717,6 +804,51 @@
         // Update HTML lang attribute
         document.documentElement.lang = lang;
       }
+
+      // Login Modal functionality
+      const loginButton = document.getElementById('loginButton');
+      const loginModal = document.getElementById('loginModal');
+      const closeModal = document.querySelector('.close-modal');
+      const loginForm = document.getElementById('loginForm');
+      const loginMessage = document.getElementById('loginMessage');
+      
+      // Open modal when login button is clicked
+      loginButton.addEventListener('click', function() {
+        loginModal.style.display = 'block';
+      });
+      
+      // Close modal when X is clicked
+      closeModal.addEventListener('click', function() {
+        loginModal.style.display = 'none';
+        loginMessage.className = 'login-message';
+        loginMessage.textContent = '';
+      });
+      
+      // Close modal when clicking outside the modal
+      window.addEventListener('click', function(event) {
+        if (event.target === loginModal) {
+          loginModal.style.display = 'none';
+          loginMessage.className = 'login-message';
+          loginMessage.textContent = '';
+        }
+      });
+      
+      // Handle login form submission
+      loginForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const email = document.getElementById('emailInput').value;
+        
+        // Simulate sending magic link
+        loginMessage.className = 'login-message success';
+        loginMessage.textContent = `Un link de autentificare a fost trimis la ${email}. Verifică-ți email-ul!`;
+        
+        // In a real application, you would make an API call here
+        // For demo purposes, we'll just redirect to the member area after a delay
+        setTimeout(() => {
+          window.location.href = 'member-area.html';
+        }, 3000);
+      });
     });
 
     function initThreeJS() {
