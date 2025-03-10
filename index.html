@@ -313,6 +313,52 @@
       border-radius: 4px;
       font-size: 0.9rem;
     }
+
+    /* Added styles for the interactive cube demo */
+    .form-group {
+      margin-bottom: 1em;
+    }
+    
+    label {
+      display: inline-block;
+      margin-bottom: 0.5em;
+      color: #fff;
+    }
+    
+    input[type="text"] {
+      font-family: inherit;
+      padding: 5px 8px;
+      width: 60px;
+      margin-left: 5px;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      background-color: rgba(255,255,255,0.9);
+    }
+    
+    .error-message {
+      color: #ff7777;
+      display: none;
+      margin-top: 0.5em;
+    }
+    
+    canvas {
+      display: block;
+      margin: 1em 0;
+      border: 1px solid rgba(255,255,255,0.2);
+      max-width: 100%;
+      height: auto;
+      background-color: rgba(0,0,0,0.2);
+      border-radius: 8px;
+    }
+    
+    .hero-demo-container {
+      max-width: 600px;
+      width: 100%;
+      margin: 2rem auto 0;
+      padding: 20px;
+      border-radius: 8px;
+      background-color: rgba(0,0,0,0.15);
+    }
   </style>
 </head>
 <body>
@@ -344,19 +390,42 @@
 
   <!-- Hero Section -->
   <section class="hero">
-    <h1>Jocul care nu-i joc, dar te pregătește la teme</h1>
+    <h1>Învățare Gamificată - Educație prin Joc</h1>
     <p>
-      Bine ai venit la Saficus, platforma românească ce folosește inteligență artificială pentru a-ți transforma temele
-      în adevărate misiuni captivante. Tu înveți materia, iar jocul prinde viață!
+      Bine ai venit la Saficus, platforma românească ce folosește inteligență artificială pentru a transforma
+      procesul de învățare într-o experiență distractivă și captivantă. Rezolvi exerciții, câștigi puncte și
+      progresezi în timp ce îți consolidezi cunoștințele!
     </p>
     <a href="#features" class="btn-primary">Hai să începem</a>
 
-    <!-- Hero image -->
-    <div class="hero-img-container">
-      <img 
-        src="assets/images/hero-saficus.jpg" 
-        alt="Copii folosind platforma Saficus"
-      />
+    <!-- Interactive 3D cube demo instead of static image -->
+    <div class="hero-demo-container">
+      <h2>Încearcă o demonstrație!</h2>
+      <p style="color: #fff; margin-bottom: 1em;">
+        Rezolvă <strong>3 probleme de adunare</strong> pentru clasa a III-a, folosind metoda de <strong>adunare Gauss</strong>. 
+        Dacă toate răspunsurile sunt corecte, cubul își schimbă culoarea!
+      </p>
+
+      <div id="canvas-container">
+        <canvas id="myCube" width="600" height="300" aria-label="Cub 3D interactiv"></canvas>
+        <div id="canvas-error" class="error-message">Browserul tău nu suportă canvas sau WebGL. Te rugăm să încerci un browser modern.</div>
+      </div>
+
+      <form id="mathForm">
+        <div class="form-group">
+          <label for="ans1">1. 1 + 2 + 3 + 4 + 5 =</label>
+          <input id="ans1" type="text" pattern="[0-9]+" inputmode="numeric" aria-required="true" />
+        </div>
+        <div class="form-group">
+          <label for="ans2">2. 1 + 2 + 3 + ... + 10 =</label>
+          <input id="ans2" type="text" pattern="[0-9]+" inputmode="numeric" aria-required="true" />
+        </div>
+        <div class="form-group">
+          <label for="ans3">3. 1 + 2 + 3 + ... + 20 =</label>
+          <input id="ans3" type="text" pattern="[0-9]+" inputmode="numeric" aria-required="true" />
+        </div>
+        <button type="button" class="btn-primary" onclick="verificaRezultate()" aria-label="Verifică răspunsurile">Verifică rezultatele</button>
+      </form>
     </div>
   </section>
 
@@ -491,9 +560,118 @@
     </div>
   </footer>
 
+  <!-- Three.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.136.0/build/three.min.js"></script>
+  
   <script>
     // Update the footer year automatically
     document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // Wait for DOM to be ready for the 3D cube
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if WebGL is supported
+      try {
+        initThreeJS();
+      } catch (e) {
+        console.error("ThreeJS initialization error:", e);
+        document.getElementById('canvas-error').style.display = 'block';
+        document.getElementById('myCube').style.display = 'none';
+      }
+    });
+
+    function initThreeJS() {
+      // ----- Configurare scenă, cameră, renderer -----
+      const canvas = document.getElementById('myCube');
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+      renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color('#5151e5');
+
+      const camera = new THREE.PerspectiveCamera(
+        40,
+        canvas.clientWidth / canvas.clientHeight,
+        0.1,
+        1000
+      );
+      camera.position.z = 5;
+
+      // Add ambient light to see the cube better
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+      scene.add(ambientLight);
+      
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+      directionalLight.position.set(1, 1, 1);
+      scene.add(directionalLight);
+
+      // ----- Creare cub -----
+      const geometry = new THREE.BoxGeometry(1, 1, 1);
+      const material = new THREE.MeshPhongMaterial({ 
+        color: '#f9c01c',
+        shininess: 60
+      });
+      const cube = new THREE.Mesh(geometry, material);
+      scene.add(cube);
+
+      // Handle window resize
+      window.addEventListener('resize', () => {
+        const width = canvas.clientWidth;
+        const height = canvas.clientHeight;
+        
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        
+        renderer.setSize(width, height);
+      });
+
+      // ----- Animare -----
+      function animate() {
+        requestAnimationFrame(animate);
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      // Make cube available globally
+      window.cube = cube;
+    }
+
+    // ----- Funcție verificare rezultate -----
+    function verificaRezultate() {
+      const r1 = document.getElementById("ans1").value.trim();
+      const r2 = document.getElementById("ans2").value.trim();
+      const r3 = document.getElementById("ans3").value.trim();
+
+      // Validare input
+      if (!r1 || !r2 || !r3 || isNaN(r1) || isNaN(r2) || isNaN(r3)) {
+        alert("Te rugăm să completezi toate câmpurile cu numere întregi.");
+        return;
+      }
+
+      // Rezultatele corecte (formulă Gauss n(n+1)/2)
+      const correct1 = 15;  // 1+2+3+4+5
+      const correct2 = 55;  // 1+...+10
+      const correct3 = 210; // 1+...+20
+
+      if (
+        parseInt(r1) === correct1 &&
+        parseInt(r2) === correct2 &&
+        parseInt(r3) === correct3
+      ) {
+        // Schimbă culoarea cubului la verde dacă toate sunt corecte
+        if (window.cube) {
+          window.cube.material.color.set('#00dd00');
+        }
+        alert("Felicitări! Toate răspunsurile sunt corecte!");
+      } else {
+        if (window.cube) {
+          window.cube.material.color.set('#ff7777');
+        }
+        alert("Mai încearcă! Unul sau mai multe răspunsuri sunt greșite.");
+      }
+    }
   </script>
 </body>
 </html>
